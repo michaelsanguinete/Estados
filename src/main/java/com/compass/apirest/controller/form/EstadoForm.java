@@ -1,22 +1,25 @@
 package com.compass.apirest.controller.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
+
 import com.compass.apirest.modelo.Estado;
 
 public class EstadoForm {
 	
-	private int id;
+	@NotNull @NotEmpty
 	private String nome;
+	@NotNull @NotEmpty
 	private String regiao;
+	@Range(min = 0)
 	private long populacao;
+	@NotNull @NotEmpty
 	private String capital;
+	@Range(min = 0)
 	private double area;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNome() {
 		return nome;
 	}
@@ -49,7 +52,7 @@ public class EstadoForm {
 	}
 	public Estado converter() {
 		
-		return new Estado(id, nome, regiao, populacao, capital, area);
+		return new Estado(nome, regiao, populacao, capital, area);
 	}
 	
 	

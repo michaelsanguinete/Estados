@@ -26,8 +26,7 @@ public class Estado {
 
 	}
 
-	public Estado(int id, String nome, String regiao, long populacao, String capital, double area) {
-		this.id = id;
+	public Estado(String nome, String regiao, long populacao, String capital, double area) {
 		this.nome = nome;
 		this.regiao = regiao;
 		this.populacao = populacao;

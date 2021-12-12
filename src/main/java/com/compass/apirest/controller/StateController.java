@@ -1,13 +1,18 @@
 package com.compass.apirest.controller;
 
+import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.compass.apirest.controller.dto.EstadoDto;
 import com.compass.apirest.controller.form.EstadoForm;
@@ -37,10 +42,13 @@ public class StateController {
 	
 	@PostMapping
 	
-	public void cadastrar (@RequestBody EstadoForm form) {
+	public ResponseEntity<EstadoDto> cadastrar (@RequestBody @Valid EstadoForm form, UriComponentsBuilder uriBuilder) {
 		
 		Estado estado = form.converter();
 		estadoRepository.save(estado);
+	
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(estado.getId()).toUri();
+		return ResponseEntity.created(uri).body(new EstadoDto(estado));
 		
 	}
 	
