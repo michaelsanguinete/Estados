@@ -58,4 +58,30 @@ public class Estado {
 		return area;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setRegiao(String regiao) {
+		this.regiao = regiao;
+	}
+
+	public void setPopulacao(long populacao) {
+		this.populacao = populacao;
+	}
+
+	public void setCapital(String capital) {
+		this.capital = capital;
+	}
+
+	public void setArea(double area) {
+		this.area = area;
+	}
+
+	
+	
 }

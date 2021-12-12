@@ -3,6 +3,7 @@ package com.compass.apirest.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,6 @@ import com.compass.apirest.controller.form.EstadoForm;
 import com.compass.apirest.modelo.Estado;
 import com.compass.apirest.repository.EstadoRepository;
 
-
 @RestController
 @RequestMapping("/api/states")
 public class StateController {
@@ -30,38 +31,82 @@ public class StateController {
 
 	@GetMapping
 	public List<EstadoDto> listarTodos(String regiao) {
-		if (regiao ==null) {
+		if (regiao == null) {
 			List<Estado> estados = estadoRepository.findAll();
 			return EstadoDto.converter(estados);
-		}
-		else {
+		} else {
 			List<Estado> estados = estadoRepository.findByRegiao(regiao);
 			return EstadoDto.converter(estados);
 		}
-		
+
 	}
-	
+
 	@PostMapping
-	
-	public ResponseEntity<EstadoDto> cadastrar (@RequestBody @Valid EstadoForm form, UriComponentsBuilder uriBuilder) {
-		
+
+	public ResponseEntity<EstadoDto> cadastrar(@RequestBody @Valid EstadoForm form, UriComponentsBuilder uriBuilder) {
+
 		Estado estado = form.converter();
 		estadoRepository.save(estado);
-	
+
 		URI uri = uriBuilder.path("/{id}").buildAndExpand(estado.getId()).toUri();
 		return ResponseEntity.created(uri).body(new EstadoDto(estado));
-		
+
 	}
-	
-	
+
 	@GetMapping("/{id}")
 	public EstadoDto listarIndividual(@PathVariable int id) {
-		
+
 		Estado estado = estadoRepository.getById(id);
-		
+
 		return new EstadoDto(estado);
 	}
-	
-	
+
+	@PutMapping("/{id}")
+	@Transactional
+	public ResponseEntity<EstadoDto> atualizar(@PathVariable int id, @RequestBody @Valid EstadoForm form) {
+		
+		Estado estado = form.atualizar(id, estadoRepository);
+
+		return ResponseEntity.ok(new EstadoDto(estado));
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

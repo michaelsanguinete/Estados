@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
 import com.compass.apirest.modelo.Estado;
+import com.compass.apirest.repository.EstadoRepository;
 
 public class EstadoForm {
 	
@@ -53,6 +54,17 @@ public class EstadoForm {
 	public Estado converter() {
 		
 		return new Estado(nome, regiao, populacao, capital, area);
+	}
+	public Estado atualizar(int id, EstadoRepository estadoRepository) {
+		
+		Estado estado = estadoRepository.getById(id);
+		estado.setArea(this.area);
+		estado.setCapital(this.capital);
+		estado.setNome(this.nome);
+		estado.setPopulacao(this.populacao);
+		estado.setRegiao(this.regiao);
+		
+		return estado;
 	}
 	
 	
