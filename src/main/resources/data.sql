@@ -4,12 +4,12 @@ INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Amapá','Nor
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Amazonas','Norte','4269995','Manaus','1559167.878');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Bahia','Nordeste','14985284','Salvador','564760.427');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Ceará','Nordeste','9240580','Fortaleza','148894.442');
-INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Distrito Federal','Centro-Oeste','3094325','Brasília','5760.784');
+INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Distrito Federal','CentroOeste','3094325','Brasília','5760.784');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Espírito Santo','Sudeste','4108508','Vitória','46074.447');
-INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Goiás','Centro-Oeste','7206589','Goiânia','340242.854');
+INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Goiás','CentroOeste','7206589','Goiânia','340242.854');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Maranhão','Nordeste','7153262','São Luís','329651.495');
-INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Mato Grosso','Centro-Oeste','3567234','Cuiabá','903207.05');
-INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Mato Grosso do Sul','Centro-Oeste','2839188','Campo Grande','357147.994');
+INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Mato Grosso','CentroOeste','3567234','Cuiabá','903207.05');
+INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Mato Grosso do Sul','CentroOeste','2839188','Campo Grande','357147.994');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Minas Gerais','Sudeste','21411923','Belo Horizonte','586513.993');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Pará','Norte','8777124','Belém','1245870.707');
 INSERT INTO ESTADOS(nome, regiao, populacao, capital, area) VALUES('Paraíba','Nordeste','4059905','João Pessoa','56467.242');

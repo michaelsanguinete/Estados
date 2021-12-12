@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.compass.apirest.modelo.Estado;
+import com.compass.apirest.modelo.Regioes;
 
 public class EstadoDto {
 
 	private int id;
 	private String nome;
-	private String regiao;
+	private Regioes regiao;
 	private long populacao;
 	private String capital;
 	private double area;
@@ -39,7 +40,7 @@ public class EstadoDto {
 		return nome;
 	}
 
-	public String getRegiao() {
+	public Regioes getRegiao() {
 		return regiao;
 	}
 

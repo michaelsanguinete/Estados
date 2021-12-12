@@ -1,6 +1,8 @@
 package com.compass.apirest.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +16,8 @@ public class Estado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nome;
-	// @Enumerated(EnumType.STRING)
-	private String regiao;
+	@Enumerated(EnumType.STRING)
+	private Regioes regiao;
 	private long populacao;
 	private String capital;
 	private double area;
@@ -24,7 +26,7 @@ public class Estado {
 
 	}
 
-	public Estado(String nome, String regiao, long populacao, String capital, double area) {
+	public Estado(String nome, Regioes regiao, long populacao, String capital, double area) {
 		this.nome = nome;
 		this.regiao = regiao;
 		this.populacao = populacao;
@@ -40,7 +42,7 @@ public class Estado {
 		return nome;
 	}
 
-	public String getRegiao() {
+	public Regioes getRegiao() {
 		return regiao;
 	}
 
@@ -64,7 +66,7 @@ public class Estado {
 		this.nome = nome;
 	}
 
-	public void setRegiao(String regiao) {
+	public void setRegiao(Regioes regiao) {
 		this.regiao = regiao;
 	}
 

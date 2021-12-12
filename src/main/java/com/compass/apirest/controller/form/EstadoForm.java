@@ -1,19 +1,22 @@
 package com.compass.apirest.controller.form;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
 import com.compass.apirest.modelo.Estado;
+import com.compass.apirest.modelo.Regioes;
 import com.compass.apirest.repository.EstadoRepository;
 
 public class EstadoForm {
 	
 	@NotNull @NotEmpty
 	private String nome;
-	@NotNull @NotEmpty
-	private String regiao;
+	@Enumerated(EnumType.STRING)
+	private Regioes regiao;
 	@Range(min = 0)
 	private long populacao;
 	@NotNull @NotEmpty
@@ -27,10 +30,10 @@ public class EstadoForm {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getRegiao() {
+	public Regioes getRegiao() {
 		return regiao;
 	}
-	public void setRegiao(String regiao) {
+	public void setRegiao(Regioes regiao) {
 		this.regiao = regiao;
 	}
 	public long getPopulacao() {

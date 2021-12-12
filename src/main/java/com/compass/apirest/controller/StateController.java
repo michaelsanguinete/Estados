@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.compass.apirest.controller.dto.EstadoDto;
 import com.compass.apirest.controller.form.EstadoForm;
 import com.compass.apirest.modelo.Estado;
+import com.compass.apirest.modelo.Regioes;
 import com.compass.apirest.repository.EstadoRepository;
 
 @RestController
@@ -34,27 +35,29 @@ public class StateController {
 	private EstadoRepository estadoRepository;
 
 	@GetMapping
-	public List<EstadoDto> listarTodos(String filtro) { // Para filtrar por região: /?filtro=Nordeste etc.
-													   // Para ordenar por população/area: /?filtro=Populacao  /?filtro=Area
+	public List<EstadoDto> listarTodos(@RequestParam(required = false) String filtro,
+			@RequestParam(required = false) Regioes regiao) {
 
-		if (filtro == null) {
-			List<Estado> estados = estadoRepository.findAll();
-			return EstadoDto.converter(estados);
+		List<Estado> estados;
 
-		} else if (filtro.equalsIgnoreCase("Populacao")) {
-			List<Estado> estados = estadoRepository.findAll(Sort.by("populacao").descending());
-			return EstadoDto.converter(estados);
+		if (regiao == null) {
+			estados = estadoRepository.findAll();
+
+		} else {
+			estados = estadoRepository.findByRegiao(regiao);
+
 		}
+		if (filtro != null) {
+			if (filtro.equalsIgnoreCase("Populacao")) {
+				estados = estadoRepository.findAll(Sort.by("populacao").descending());
+			}
 
-		else if (filtro.equalsIgnoreCase("Area")) {
-			List<Estado> estados = estadoRepository.findAll(Sort.by("area").descending());
-			return EstadoDto.converter(estados);
-		}
+			else if (filtro.equalsIgnoreCase("Area")) {
+				estados = estadoRepository.findAll(Sort.by("area").descending());
 
-		else {
-			List<Estado> estados = estadoRepository.findByRegiao(filtro);
-			return EstadoDto.converter(estados);
+			}
 		}
+		return EstadoDto.converter(estados);
 
 	}
 
