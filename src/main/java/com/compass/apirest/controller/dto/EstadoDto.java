@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.compass.apirest.modelo.Estado;
-import com.compass.apirest.modelo.Regioes;
 
 public class EstadoDto {
 

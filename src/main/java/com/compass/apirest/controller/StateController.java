@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,12 +34,25 @@ public class StateController {
 	private EstadoRepository estadoRepository;
 
 	@GetMapping
-	public List<EstadoDto> listarTodos(String regiao) {
-		if (regiao == null) {
+	public List<EstadoDto> listarTodos(String filtro) { // Para filtrar por região: /?filtro=Nordeste etc.
+													   // Para ordenar por população/area: /?filtro=Populacao  /?filtro=Area
+
+		if (filtro == null) {
 			List<Estado> estados = estadoRepository.findAll();
 			return EstadoDto.converter(estados);
-		} else {
-			List<Estado> estados = estadoRepository.findByRegiao(regiao);
+
+		} else if (filtro.equalsIgnoreCase("Populacao")) {
+			List<Estado> estados = estadoRepository.findAll(Sort.by("populacao").descending());
+			return EstadoDto.converter(estados);
+		}
+
+		else if (filtro.equalsIgnoreCase("Area")) {
+			List<Estado> estados = estadoRepository.findAll(Sort.by("area").descending());
+			return EstadoDto.converter(estados);
+		}
+
+		else {
+			List<Estado> estados = estadoRepository.findByRegiao(filtro);
 			return EstadoDto.converter(estados);
 		}
 
@@ -82,15 +97,15 @@ public class StateController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> deletar(@PathVariable int id) {
-		
+
 		Optional<Estado> optional = estadoRepository.findById(id);
 		if (optional.isPresent()) {
-		estadoRepository.deleteById(id);
-		return ResponseEntity.ok().build();
+			estadoRepository.deleteById(id);
+			return ResponseEntity.ok().build();
 		}
-		
+
 		return ResponseEntity.notFound().build();
-		
+
 	}
 
 }
