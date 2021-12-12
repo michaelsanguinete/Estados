@@ -2,6 +2,7 @@ package com.compass.apirest.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -55,69 +56,41 @@ public class StateController {
 	}
 
 	@GetMapping("/{id}")
-	public EstadoDto listarIndividual(@PathVariable int id) {
+	public ResponseEntity<EstadoDto> listarIndividual(@PathVariable int id) {
 
-		Estado estado = estadoRepository.getById(id);
+		Optional<Estado> estado = estadoRepository.findById(id);
+		if (estado.isPresent())
+			return ResponseEntity.ok(new EstadoDto(estado.get()));
 
-		return new EstadoDto(estado);
+		return ResponseEntity.notFound().build();
 	}
 
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<EstadoDto> atualizar(@PathVariable int id, @RequestBody @Valid EstadoForm form) {
-		
-		Estado estado = form.atualizar(id, estadoRepository);
 
-		return ResponseEntity.ok(new EstadoDto(estado));
+		Optional<Estado> optional = estadoRepository.findById(id);
+		if (optional.isPresent()) {
+			Estado estado = form.atualizar(id, estadoRepository);
+			return ResponseEntity.ok(new EstadoDto(estado));
+		}
+
+		return ResponseEntity.notFound().build();
+
 	}
-	
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> deletar (@PathVariable int id){
+	public ResponseEntity<?> deletar(@PathVariable int id) {
 		
+		Optional<Estado> optional = estadoRepository.findById(id);
+		if (optional.isPresent()) {
 		estadoRepository.deleteById(id);
-		
 		return ResponseEntity.ok().build();
+		}
+		
+		return ResponseEntity.notFound().build();
+		
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
