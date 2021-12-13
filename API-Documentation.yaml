@@ -1,0 +1,162 @@
+openapi: 3.0.1
+info:
+  title: API Controle de Estados
+  description: API para visualizar, filtrar, adicionar, excluir, editar estados brasileiros juntamente com suas respectivas capitais, regiões, área e número de habitantes.
+  version: 1.2
+  termsOfService: https://github.com/michaelsanguinete
+  contact:
+    name: Desenvolverdor
+    email: michael.sanguinete@gmail.com
+    url: https://github.com/michaelsanguinete
+  license:
+    name: Licença
+    url: https://www.gnu.org/licenses/gpl-3.0.pt-br.html
+externalDocs:
+  description: API REST Controle Estados
+  url: https://github.com/michaelsanguinete/Sprint3
+servers: 
+- url: http://localhost:8080/
+  description: localhost
+paths:
+  /api/states:
+   get:
+    summary: Retorna todos os estados brasileiros juntamente com sua região, capital, área e número de habitantes.
+    responses:
+      200:
+        description: Sucesso
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+               $ref: "#/components/schemas/StateGet"
+   post: 
+    summary: Adiciona um novo estado.
+    requestBody:
+      content:
+          application/json:
+            schema:
+              type: array
+              items:
+               $ref: "#/components/schemas/StatePost"
+    responses:
+      201:
+       description: Sucesso
+       content:
+          application/json:
+            schema:
+              type: array
+              items:
+               $ref: "#/components/schemas/StateGet"
+    security: 
+    - auth: []
+  /api/states/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      summary: Filtra um estado pelo id.
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: "#/components/schemas/StateGet"
+        404:
+          description: Id não encontrado
+          content:
+            application/json:
+              example: ""
+    put:
+      summary: Atualizar um estado cadastrado
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: "#/components/schemas/StatePost"
+    
+        404:
+          description: Id não encontrado
+          content:
+            application/json:
+              example: ""
+    security: 
+    - auth: []
+    delete:
+      summary: Delete um estado existente
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              example: ""
+        404:
+          description: Id não encontrado
+          content:
+            application/json:
+              example: ""
+    security: 
+    - auth: []
+components:
+  schemas:
+    StatePost:
+      type: object
+      properties:
+        nome:
+          type: string
+        regiao:
+          type: object
+        populacao:
+          type: integer
+        capital:
+          type: string
+        area:
+          type: number
+    StateGet:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        regiao:
+          type: object
+        populacao:
+          type: integer
+        capital:
+          type: string
+        area:
+          type: number
+  securitySchemes:
+    auth: 
+      type: http
+      scheme: bearer
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
